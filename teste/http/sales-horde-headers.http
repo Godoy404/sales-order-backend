@@ -1,0 +1,12 @@
+@localhost=localhost:4004/odata/v4/main
+
+get http://{{localhost}}/SalesOrderHeaders
+Content-Type: application/json
+###
+post http://{{localhost}}/SalesOrderHeaders
+Content-Type: application/json
+{
+    "id": "12345637890"
+}
+###
+DELETE http://{{localhost}}/SalesOrderHeaders('12345637890')
