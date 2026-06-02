@@ -2,11 +2,13 @@
 
 get http://{{localhost}}/SalesOrderHeaders
 Content-Type: application/json
+
 ###
+
 post http://{{localhost}}/SalesOrderHeaders
 Content-Type: application/json
 {
-    "id": "12345637890"
+    "id": "1234s5637890"
 }
 ###
 DELETE http://{{localhost}}/SalesOrderHeaders('12345637890')
