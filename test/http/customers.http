@@ -1,0 +1,40 @@
+@localhost=localhost:4004/odata/v4/main
+@id=123e4567-e89b-12d3-a456-426614174000
+
+get http://{{localhost}}/Customers
+Content-Type: application/json
+
+###
+post http://{{localhost}}/Customers
+Content-Type: application/json
+
+{
+    "id": "{{id}}",
+    "firstName": "Marcelo",
+    "lastName": "Godoy",
+    "email": "marcelo@sap.com"
+
+}
+
+
+###
+PUT http://{{localhost}}/Customers/{{id}}
+Content-Type: application/json
+
+{
+    "firstName": "Bento",
+    "lastName": "Borba",
+    "email": "bento@sap.com"
+}
+
+####
+DELETE http://{{localhost}}/Customers({{id}})
+
+
+
+# entity Customers {
+#     key id        : UUID; // Chave primária do cliente
+#         firstName : String(20); // Nome do cliente
+#         lastName  : String(50); // Sobrenome do cliente
+#         email     : String(100); // Email do cliente
+# }
