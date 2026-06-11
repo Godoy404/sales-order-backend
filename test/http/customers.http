@@ -64,6 +64,16 @@ get http://{{localhost}}/SalesOrderHeaders?$top=2&$skip=0
 #                            PROVEDOR DE SERVIÇO IMPLEMENTA O RECURSO DE PESQUISA)
 get http://{{localhost}}/SalesOrderHeaders?$search=9zk1@
 
+###
+# buscando dados com $search  (USAR COM CUIDADO, POIS DEPENDE DE COMO O
+
+get http://{{localhost}}/SalesOrderHeaders?$search=fistName
+
+###
+# Ordenando dados com $orderby
+get http://{{localhost}}/SalesOrderHeaders?$orderby=customer/firstName desc
+Content-Type: application/json
+
 
 
 
