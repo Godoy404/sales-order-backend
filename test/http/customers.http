@@ -9,11 +9,9 @@ post http://{{localhost}}/Customers
 Content-Type: application/json
 
 {
-    "id": "{{id}}",
     "firstName": "Marcelo",
     "lastName": "Godoy",
     "email": "marcelo@sap.com"
-
 }
 
 
@@ -27,8 +25,47 @@ Content-Type: application/json
     "email": "bento@sap.com"
 }
 
-####
+###
 DELETE http://{{localhost}}/Customers({{id}})
+
+
+###
+# Expandindo os itens, produtos e customers
+get http://{{localhost}}/SalesOrderHeaders?$expand=items($expand=product),customer
+
+###
+
+# # Expandindo os itens, produtos, customers e filtrando 
+get http://{{localhost}}/SalesOrderHeaders?$expand=items($expand=product;$filter=quantity le 2),customer&$filter=customer/firstName eq 'Bento'
+
+
+
+###
+# Selecionar somente customers e id do sales orders header
+get http://{{localhost}}/SalesOrderHeaders?$select=customer&$expand=customer($select=id,firstName,lastName)
+
+###
+
+get http://{{localhost}}/SalesOrderHeaders?$expand=customer($select=id,firstName,lastName,email)
+
+###
+
+# Descobrindo a quantidade de registros
+get http://{{localhost}}/SalesOrderHeaders/$count
+
+###
+
+# Paginando os resultados / Registros 1 a 5
+get http://{{localhost}}/SalesOrderHeaders?$top=9&$skip=0
+
+
+
+
+
+
+
+
+
 
 
 

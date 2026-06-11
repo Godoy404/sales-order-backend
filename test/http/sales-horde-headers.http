@@ -41,3 +41,8 @@ Content-Type: application/json
 {
     "modifiedBy": "test"
 }
+
+###
+
+# Buscar todos os pedidos miores ou iguais a x
+GET http://localhost:4004/localhost:4004/odata/v4/main/SalesOrderHeaders=totalAmountle%20500000
