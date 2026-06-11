@@ -56,7 +56,13 @@ get http://{{localhost}}/SalesOrderHeaders/$count
 ###
 
 # Paginando os resultados / Registros 1 a 5
-get http://{{localhost}}/SalesOrderHeaders?$top=9&$skip=0
+get http://{{localhost}}/SalesOrderHeaders?$top=2&$skip=0
+
+###
+
+#buscando dados com $search  (USAR COM CUIDADO, POIS DEPENDE DE COMO O 
+#                            PROVEDOR DE SERVIÇO IMPLEMENTA O RECURSO DE PESQUISA)
+get http://{{localhost}}/SalesOrderHeaders?$search=9zk1@
 
 
 
