@@ -11,6 +11,11 @@
         "outDir": "./dist", // Especifica o diretório de saída para os arquivos compilados
         "baseUrl": "./", // Define a base para resolução de módulos
         "rootDir": "./", // Especifica o diretório raiz dos arquivos de origem
+        "paths": {
+            "@models/*": [
+                "./cds-models/*/index.ts"
+            ] // Configura um alias para importar arquivos de modelos de forma mais simples
+        }
     },
     "include": [
         "srv"
