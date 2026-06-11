@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "target": "es2024", // Define a versão do JavaScript para a qual o TypeScript será compilado
+        "module": "node16", // Define o sistema de módulos para Node.js
+        "moduleResolution": "node16", // Configura o módulo para Node.js
+        "esModuleInterop": true, // Habilita a interoperabilidade entre módulos CommonJS        
+        "strict": true, // Habilita todas as verificações de tipo estritas
+        "strictBindCallApply": true, // Verifica os tipos de argumentos em chamadas de função
+        "noImplicitAny": true, // Impede o uso de tipos implícitos 'any'
+        "sourceMap": true, // Gera arquivos de mapa de origem para depuração
+        "outDir": "./dist", // Especifica o diretório de saída para os arquivos compilados
+        "baseUrl": "./", // Define a base para resolução de módulos
+        "rootDir": "./", // Especifica o diretório raiz dos arquivos de origem
+    },
+    "include": [
+        "srv"
+    ], // Inclui a pasta 'srv' para ser compilada
+    "exclude": [
+        "node_modules",
+    ] // Exclui a pasta 'node_modules' para evitar a compilação de dependências
+}
