@@ -29,4 +29,5 @@ entity Products {
     key id    : UUID; // Chave primária do produto
         name  : String(255); // Nome do produto
         price : Decimal(15, 2); // Preço do produto
+        stock : Integer; // Estoque disponível do produto
 }

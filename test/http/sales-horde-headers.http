@@ -3,6 +3,9 @@
 @customerId=7f6754c8-8f69-4910-b76b-f7a6e17b4eee
 @productId=2718d8ca-8869-4ec8-8458-af373531d01c
 
+@productId1=2718d8ca-8869-4ec8-8458-af373531d01c  # Produto 1 sem estoque
+@productId2=2718d8ca-8869-4ec8-8458-af373531d01c # Produto 2 com estoque suficiente
+
 
 get http://{{localhost}}/SalesOrderHeaders
 Content-Type: application/json
@@ -14,7 +17,7 @@ Content-Type: application/json
 
 {
     "id": "{{id}}",
-    "customer_id": "{{customerId}}",
+   #"customer_id": "{{customerId}}",
     "items": [
         {
             "id": "0e089646-2b5e-427b-84de-ad00564e30c7",
