@@ -1,41 +1,49 @@
 @localhost=localhost:4004/odata/v4/main
-@id=123e4567-e89b-12d3-a456-426614174000
-@customerId=7f6754c8-8f69-4910-b76b-f7a6e17b4eee
-@productId=2718d8ca-8869-4ec8-8458-af373531d01c
+@id=5403024c-c21f-4a8f-8ab8-98f930afecc2
+@customerId=5403024c-c21f-4a8f-8ab8-98f930afecc2
+@productId=5403024c-c21f-4a8f-8ab8-98f930afecc2
+@itemId1=23980619-1111-1111-1111-111111111111
+@itemId2=23980620-2222-2222-2222-222222222222
 
-@productId1=2718d8ca-8869-4ec8-8458-af373531d01c  # Produto 1 sem estoque
-@productId2=2718d8ca-8869-4ec8-8458-af373531d01c # Produto 2 com estoque suficiente
+@productId1=26924639-cb46-4dd3-bf1a-8b20326c2f1d  # Produto 1 sem estoque
+@productId2=5403024c-c21f-4a8f-8ab8-98f930afecc2 # Produto 2 com estoque suficiente
 
 
 get http://{{localhost}}/SalesOrderHeaders
 Content-Type: application/json
+Authorization: basic godoy2:godoy2
 
 ###
 
 post http://{{localhost}}/SalesOrderHeaders
 Content-Type: application/json
+Authorization: basic godoy2:godoy2
 
 {
     "id": "{{id}}",
-   #"customer_id": "{{customerId}}",
+   "customer_id": "{{customerId}}",
+   "totalAmount": 200,
     "items": [
         {
-            "id": "0e089646-2b5e-427b-84de-ad00564e30c7",
-            "product_id": "{{productId}}",
-            "quantity": 10,
-            "price": 3.99
+            "id": "{{itemId1}}",
+            "header_id": "{{id}}",
+            "product_id": "{{productId2}}",
+            "quantity": 2000,
+            "price": 10000
         },
         {
-            "id": "1e089646-2b5e-427b-84de-ad00564e30c7",
-            "product_id": "{{productId}}",
-            "quantity": 5,
-            "price": 9.99
+            "id": "{{itemId2}}",
+            "header_id": "{{id}}",
+            "product_id": "{{productId2}}",
+            "quantity":2000,
+            "price": 50000
         }
     ]
 }
 ###
 DELETE http://{{localhost}}/SalesOrderHeaders(id={{id}})
 Content-Type: application/json
+Authorization: basic godoy2:godoy2
 
 ###
 
@@ -47,5 +55,6 @@ Content-Type: application/json
 
 ###
 
-# Buscar todos os pedidos miores ou iguais a x
-GET http://localhost:4004/localhost:4004/odata/v4/main/SalesOrderHeaders=totalAmountle%20500000
+# Buscar todos os pedidos maiores ou iguais a x
+GET http://{{localhost}}/SalesOrderHeaders?$filter=totalAmount le 500000
+Authorization: basic godoy2:godoy2

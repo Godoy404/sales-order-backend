@@ -18,6 +18,12 @@ entity SalesOrderItems {
         price    : Decimal(15, 2); // Preço do item
 }
 
+entity SalesOrderLogs : managed {
+    key id       : UUID;
+        header   : Association to SalesOrderHeaders;
+        userData : LargeString;
+}
+
 entity Customers {
     key id        : UUID; // Chave primária do cliente
         firstName : String(20); // Nome do cliente

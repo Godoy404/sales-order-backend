@@ -10,7 +10,7 @@ export default (service: Service) => {
             }
         });
     });
-    service.before('CREATE', 'salesOrders', async (request: any) => {
+    service.before('CREATE', 'SalesOrderHeaders', async (request: any) => {
         const params = request.data;
         console.log(params);
         if (!params.customer_id) {
@@ -29,14 +29,26 @@ export default (service: Service) => {
         const productIds: string[] = params.items.map((item: any) => item.product_id);
         const products = await cds.run(SELECT.from('sales.products').where({ id: productIds }));
         const dbProducts = (products as any[]).map((product: any) => product.id);
-        if (productIds.some((productId: any) => !dbProducts.includes(productId))) {
+        if (productIds.some((productId2: any) => !dbProducts.includes(productId2))) {
             return request.reject(400, 'Um ou mais produtos não encontrados');
         }
         if ((products as any[]).some((product: any) => product.stock <= 0)) {
             return request.reject(400, 'Um ou mais produtos estão sem estoque');
         }
+        let totalAmount = 0;
+        (params.items as any[]).forEach(item => {
+            totalAmount += (item.price as number) * (item.quantity as number);
+            request.data.totalAmount = totalAmount;
+        });
+        console.log(`Antes do Desconto: ${totalAmount}`);
+        if (totalAmount > 30000) {
+            const discount = totalAmount * (10 / 100);
+            totalAmount = totalAmount - discount;
+            console.log(`Depois do Desconto: ${totalAmount}`);
+        }
+
     });
-    service.after('CREATE', 'salesOrdersHeaders', async (results: any) => {
+    service.after('CREATE', 'SalesOrderHeaders', async (results: any) => {
         const headerAsArray = Array.isArray(results) ? results : [results];
         for (const header of headerAsArray) {
             const items = (header.items || []) as any[];
@@ -58,6 +70,14 @@ export default (service: Service) => {
                 await cds.update('sales.products').where({ id: foundProduct.id }).with({ stock: newStock });
             }
         }
+        const headersAsString = headerAsArray.map(header => JSON.stringify(header));
+        console.log(headersAsString);
+        const log = headerAsArray.map(header => ({
+            header_id: header.id,
+            userData: null,
+            orderData: JSON.stringify(header)
+        }));
+        await cds.create('sales.SalesOrderLogs').entries(log);
     });
 }
 

@@ -10,6 +10,7 @@
         "sourceMap": true, // Gera arquivos de mapa de origem para depuração
         "outDir": "./dist", // Especifica o diretório de saída para os arquivos compilados
         "baseUrl": "./", // Define a base para resolução de módulos
+        "ignoreDeprecations": "6.0",
         "rootDir": "./", // Especifica o diretório raiz dos arquivos de origem
         "paths": {
             "@models/*": [
