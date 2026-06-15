@@ -1,5 +1,5 @@
 import cds, { Service } from '@sap/cds';
-import { Customers } from '@models/sales';
+import { Customers, SalesOrderHeaders, SalesOrderItems } from '@models/sales';
 const { SELECT } = cds.ql;
 
 export default (service: Service) => {
@@ -36,21 +36,29 @@ export default (service: Service) => {
             return request.reject(400, 'Um ou mais produtos estão sem estoque');
         }
     });
+    service.after('CREATE', 'salesOrdersHeaders', async (results: any) => {
+        const headerAsArray = Array.isArray(results) ? results : [results];
+        for (const header of headerAsArray) {
+            const items = (header.items || []) as any[];
+            if (items.length === 0) continue;
+
+            const productsData = items.map(item => ({
+                id: String(item.product_id),
+                quantity: Number(item.quantity)
+            }));
+
+            const productIds: string[] = productsData.map(p => p.id);
+            const products = await cds.run(SELECT.from('sales.products').where({ id: productIds }));
+            const productsMap = new Map((products as any[]).map((p: any) => [String(p.id), p]));
+
+            for (const pd of productsData) {
+                const foundProduct = productsMap.get(pd.id);
+                if (!foundProduct) continue;
+                const newStock = (foundProduct.stock ?? 0) - pd.quantity;
+                await cds.update('sales.products').where({ id: foundProduct.id }).with({ stock: newStock });
+            }
+        }
+    });
 }
 
 
-
-// import { Customer, Custumers } from '@models/Sales';
-
-// const customer: Customer = {
-//     email: 'teste@teste.com',
-//     firstName: 'Marcelo',
-//     lastName: 'Godoy',
-//     id: '1234'
-// };
-
-// const customers: Custumers = [customer];
-
-// const funcao = (variable: string) => console.log(variable);
-
-// funcao('Hello World');
