@@ -13,7 +13,7 @@
         "rootDir": "./", // Especifica o diretório raiz dos arquivos de origem
         "paths": {
             "@models/*": [
-                "./cds-models/*/index.ts"
+                "./@cds-models/*/index.ts"
             ] // Configura um alias para importar arquivos de modelos de forma mais simples
         }
     },
