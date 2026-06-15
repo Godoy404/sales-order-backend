@@ -1,0 +1,38 @@
+{
+    "developer": {
+        "require": {
+            "db": {
+                "credentials": {
+                    "database": "memory"
+                },
+                "kind": "sqlite"
+            },
+            "auth": {
+                "kind": "basic",
+                "users": {
+                    "godoy": {
+                        "password": "godoy",
+                        "roles": [
+                            "admin"
+                        ],
+                        "id": 1,
+                        "groups": [
+                            "group1",
+                            "group2"
+                        ]
+                    },
+                    "godoy2": {
+                        "password": "godoy2",
+                        "roles": [
+                            "read_only_user"
+                        ],
+                        "id": 2,
+                        "groups": [
+                            "group1"
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}
